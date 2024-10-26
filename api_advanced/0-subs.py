@@ -1,10 +1,10 @@
 #!/usr/bin/python3
+
 """
 reddit api
 """
 
 import requests
-
 
 def number_of_subscribers(subreddit):
     headers = {'User-Agent': 'Mozilla/5.0'}

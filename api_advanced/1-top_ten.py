@@ -3,20 +3,30 @@
 This module contains the function top_ten.
 """
 import requests
+from sys import argv
 
 
 def top_ten(subreddit):
     """
     Returns the top ten posts for a given subreddit.
     """
-    url = f'https://www.reddit.com/r/{subreddit}/hot.json'
-    headers = {'User-Agent': 'admin'}
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        for i in response.json().get("data").get("children"):
-            print(i.get("data").get("title"))
-    else:
-        print(None)
+    user = {'User-Agent': 'Mozilla/5.0'}
+    url = 'https://www.reddit.com/r/{}/hot/.json?limit=10'.format(subreddit)
+
+    try:
+        response = requests.get(url, headers=user, allow_redirects=False)
+        response.raise_for_status()
+        data = response.json()
+
+        if 'data' in data and 'children' in data['data']:
+            for post in data['data']['children']:
+                print(post['data']['title'])
+        print("OK")
+    except requests.exceptions.RequestException:
+        print("None")
+    except ValueError:
+        print("None")
+
 
 if __name__ == "__main__":
     if len(argv) > 1:

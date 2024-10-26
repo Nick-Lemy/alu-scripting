@@ -17,3 +17,9 @@ def top_ten(subreddit):
             print(i.get("data").get("title"))
     else:
         print(None)
+
+if __name__ == "__main__":
+    if len(argv) > 1:
+        top_ten(argv[1])
+    else:
+        print("Usage: ./script.py <subreddit>")

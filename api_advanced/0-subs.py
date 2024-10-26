@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
+
 """
 reddit api
 """
-
 
 import requests
 

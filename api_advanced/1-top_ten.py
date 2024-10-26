@@ -1,7 +1,10 @@
 #!/usr/bin/python3
+
 """
-reddit api top 10 hot post of a subreddit
+reddit api
 """
+
+
 import requests
 
 

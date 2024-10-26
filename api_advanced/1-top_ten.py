@@ -1,15 +1,33 @@
 #!/usr/bin/python3
-"""This module contains the function top_ten."""
+"""
+Module
+"""
+
+import json
 import requests
+import sys
 
 
 def top_ten(subreddit):
-    """Returns the top ten posts for a given subreddit."""
-    url = f'https://www.reddit.com/r/{subreddit}/hot.json'
-    headers = {'User-Agent': 'admin'}
-    response = requests.get(url, headers=headers)
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
+    headers = {'User-agent': 'myRedditScript/1.0'}
+    response = requests.get(url, headers=headers, allow_redirects=False)
+
     if response.status_code == 200:
-        for i in response.json().get("data").get("children"):
-            print(i.get("data").get("title"))
+        data = response.json()
+        if 'data' in data and 'children' in data['data']:
+            top_posts = [post['data']['title']
+                         for post in data['data']['children']]
+            for post_title in top_posts:
+                print(post_title)
+        else:
+            print("No posts found")
     else:
-        print(None)
+        print("None")
+
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print("Please pass an argument for the subreddit to search.")
+    else:
+        top_ten(sys.argv[1])

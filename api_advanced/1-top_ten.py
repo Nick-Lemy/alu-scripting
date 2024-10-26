@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-""" This module contains the function top_ten. """
+"""This module contains the function top_ten."""
 import requests
 
 
 def top_ten(subreddit):
-    """ Returns the top ten posts for a given subreddit. """
+    """Returns the top ten posts for a given subreddit."""
     url = f'https://www.reddit.com/r/{subreddit}/hot.json'
     headers = {'User-Agent': 'admin'}
     response = requests.get(url, headers=headers)
